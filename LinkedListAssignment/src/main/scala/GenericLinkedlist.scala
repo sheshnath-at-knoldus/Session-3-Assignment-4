@@ -1,10 +1,10 @@
 import scala.annotation.tailrec
 
 //created Node
-class Node[A](var data: A, var next: Node[A])
+class Node[A](var data: A, var nextElement: Node[A])
 
 //Generic  LinkedList class
-class Linkedlist[A] {
+class GenericLinkedlist[A] {
 
 //created Null head
   var head: Node[A] = null
@@ -15,7 +15,7 @@ class Linkedlist[A] {
     if (head == null) {
       head = newNode
     } else {
-      newNode.next = head
+      newNode.nextElement = head
       head = newNode
     }
   }
@@ -23,30 +23,30 @@ class Linkedlist[A] {
   // Delete a Node in a LinkedList
   def delete(data: A): Unit = {
     @tailrec
-    def deleteElement(prev: Node[A], current: Node[A]): Unit = {
-      if (current == null) return
-      if (current.data == data) {
-        prev.next = current.next
+    def deleteElement(previousElement: Node[A], currentElement: Node[A]): Unit = {
+      if (currentElement == null) return
+      if (currentElement.data == data) {
+        previousElement.nextElement = currentElement.nextElement
       } else {
-        deleteElement(current, current.next)
+        deleteElement(currentElement, currentElement.nextElement)
       }
     }
-    deleteElement(head, head.next)
+    deleteElement(head, head.nextElement)
   }
 
-
+// Traverse th LinkedList
   def traverse(): Unit = {
     @tailrec
-    def traverseLinkedList(current: Node[A]): Unit = {
-      if (current != null) {
-        println(current.data)
-        traverseLinkedList(current.next)
+    def traverseLinkedList(currentElement: Node[A]): Unit = {
+      if (currentElement != null) {
+        println(currentElement.data)
+        traverseLinkedList(currentElement.nextElement)
       }
     }
     traverseLinkedList(head)
   }
 
-
+//Search Element in The linkedList
   def search(data: A): Option[Node[A]] = {
     @tailrec
     def searchElement(current: Node[A]): Option[Node[A]] = {
@@ -55,7 +55,7 @@ class Linkedlist[A] {
       } else if (current.data == data) {
         Some(current)
       } else {
-        searchElement(current.next)
+        searchElement(current.nextElement)
       }
     }
     searchElement(head)

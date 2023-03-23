@@ -1,9 +1,10 @@
 import org.scalatest.funsuite.AnyFunSuite
 
-class LinkedListTest extends AnyFunSuite{
+class GenericLinkedListTest extends AnyFunSuite{
 
-  val linkedlistInt = new Linkedlist[Int]
-  val linkedlistLong = new Linkedlist[Long]
+  val linkedlistInt = new GenericLinkedlist[Int]
+  val linkedlistLong = new GenericLinkedlist[Long]
+  val linkedlistString = new GenericLinkedlist[String]
 
   test("Test case 1  for insert element ") {
     assert(linkedlistInt.head==null)
@@ -21,7 +22,7 @@ class LinkedListTest extends AnyFunSuite{
      */
     linkedlistInt.delete(2)
     assert(linkedlistInt.head.data===4)
-    assert(linkedlistInt.head.next.data===3)
+    assert(linkedlistInt.head.nextElement.data===3)
   }
 
 
@@ -51,7 +52,7 @@ class LinkedListTest extends AnyFunSuite{
      */
     linkedlistLong.delete(2543543L)
     assert(linkedlistLong.head.data === 47667576L)
-    assert(linkedlistLong.head.next.data === 37657657L)
+    assert(linkedlistLong.head.nextElement.data === 37657657L)
   }
 
 
@@ -65,5 +66,34 @@ class LinkedListTest extends AnyFunSuite{
     assert(searchElement.isEmpty)
   }
 
+
+  test("Test case 7  for insert element of String Type ") {
+    linkedlistString.insertElement("sheshu")
+    assert(linkedlistString.head.data === "sheshu")
+  }
+
+  test("Test case 8 for Delete element of String type") {
+    linkedlistString.insertElement("sheshu")
+    linkedlistString.insertElement("Shivam")
+    linkedlistString.insertElement("Rahul")
+    /*
+     Rahul->Shivam->sheshu
+     after delete Rahul->Shivam
+     */
+    linkedlistString.delete("sheshu")
+    assert(linkedlistString.head.data === "Rahul")
+    assert(linkedlistString.head.nextElement.data === "Shivam")
+  }
+
+
+  test("Test case 9  for  Search Element in LinkedList  of String type") {
+    linkedlistString.insertElement("Sheshu")
+    linkedlistString.insertElement("Rahul")
+    linkedlistString.insertElement("Shivam")
+    val searchElement = linkedlistString.search("Shyam")
+    val searchForAnotherElement = linkedlistString.search("Rahul").get.data
+    assert(searchForAnotherElement === "Rahul")
+    assert(searchElement.isEmpty)
+  }
 
 }
